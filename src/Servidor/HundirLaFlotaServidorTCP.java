@@ -2,56 +2,89 @@ package Servidor;
 
 import java.io.IOException;
 
+import Cliente.ControladorClienteTPC;
 import UndirFlota.JuegoBarcos;
+import Vista.VistaBarcos;
 
 public class HundirLaFlotaServidorTCP {
     public static void main(String[] args) throws IOException {
+        // Inicializamos el servidor en el puerto 5556
+        ServidorTCP canal = new ServidorTCP(5556);
+
+        // Creamos el modelo con la lógica del juego
+        JuegoBarcos juegoBarcos = new JuegoBarcos();
+
+        // Creamos la interfaz gráfica para el jugador 2
+        VistaBarcos miVista = new VistaBarcos("Jugador2");
+
+        // Creamos el controlador del servidor
+        ControladorServidorTPC miControlador = new ControladorServidorTPC();
+
+        // Tablero de 10x10
         String[][] tablero = new String[10][10];
+
+        // Variable que indica si el juego ha terminado
         boolean juegoTerminado = false;
 
-        ServidorTCP canal = new ServidorTCP(5556);
-        JuegoBarcos barcos = new JuegoBarcos();
-        
+        // Establecemos las relaciones entre modelo, vista y controlador
+        miControlador.setVista(miVista);
+        miControlador.setModelo(juegoBarcos);
+        juegoBarcos.setVista(miVista);
+        miVista.setModelo(juegoBarcos);
+        miVista.setControladorV(miControlador);
 
-        barcos.RellenarTablero(tablero);
-        barcos.imprimirTablero(tablero);
+        // Mostramos la interfaz gráfica
+        miVista.setVisible(true);
 
+        // Rellenamos y mostramos el tablero inicial
+        juegoBarcos.RellenarTablero(tablero);
+        miVista.imprimirTablero(tablero);
+
+        // Bucle principal del juego
         while (!juegoTerminado) {
-            System.out.println("Esperando disparo del cliente...");
+            System.out.println("Esperando disparo del Jugador1...");
             String coordenadaCliente = canal.recibirMsg();
 
+            // Si el cliente envía "Fin", el juego termina
             if (coordenadaCliente.equalsIgnoreCase("Fin")) {
-                System.out.println("El cliente terminó el juego.");
+                System.out.println("El Jugador1 ha finalizado el juego.");
                 juegoTerminado = true;
                 canal.enviarMsg("Fin");
                 break;
             }
 
-            boolean barcoHundido = barcos.ComprobarCoordenada(coordenadaCliente, tablero);
-            barcos.imprimirTablero(tablero);
+            // Comprobamos si el disparo del cliente hundió un barco
+            boolean barcoHundido = juegoBarcos.ComprobarCoordenada(coordenadaCliente, tablero);
+
+            // Actualizamos la interfaz gráfica con el estado del tablero
+            miVista.imprimirTablero(tablero);
 
             if (barcoHundido) {
-                System.out.println("El cliente hundió uno de tus barcos.");
-                canal.enviarMsg("Fin");
+                System.out.println("El Jugador1 ha hundido un barco.");
+                canal.enviarMsg("Hundido");
                 juegoTerminado = true;
                 break;
             } else {
                 canal.enviarMsg("Has fallado");
             }
 
-            System.out.println("Es tu turno, dispara:");
-            String disparoServidor = barcos.leerCoordenadaConsola();
+            // Turno del servidor para disparar
+            String disparoServidor = juegoBarcos.leerCoordenadaConsola("Jugador2");
             canal.enviarMsg(disparoServidor);
 
+            // Comprobamos la respuesta del cliente
             String respuestaCliente = canal.recibirMsg();
-            System.out.println("Cliente: " + respuestaCliente);
+            System.out.println("Respuesta del Jugador1: " + respuestaCliente);
 
-            if (respuestaCliente.equals("Fin")) {
-                System.out.println("El cliente terminó el juego.");
+            if (respuestaCliente.equalsIgnoreCase("Fin")) {
+                System.out.println("El Jugador1 ha finalizado el juego.");
                 juegoTerminado = true;
+            } else if (respuestaCliente.equalsIgnoreCase("Hundido")) {
+                System.out.println("El Jugador1 ha hundido uno de tus barcos.");
             }
         }
 
+        // Cerramos el servidor
         canal.closeServidorTCP();
     }
 }

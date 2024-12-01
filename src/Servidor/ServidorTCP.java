@@ -11,6 +11,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ServidorTCP {
+
+	// Conexiones entre el servidor y el cliente
 	private Socket socketCliente;
 	private ServerSocket socketServidor;
 	private BufferedReader entrada;

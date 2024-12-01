@@ -2,18 +2,36 @@ package UndirFlota;
 
 import java.util.Scanner;
 
+import Cliente.ControladorClienteTPC;
+import Vista.VistaBarcos;
 
-public class JuegoBarcos{
+public class JuegoBarcos {
 
+	// Damos a conocer las clases entre ellas
+	private VistaBarcos miVista;
+	private ControladorClienteTPC miControlador;
+
+	public JuegoBarcos() {
+		super();
+	}
+
+	public void setModelo(ControladorClienteTPC miControlador) {
+		this.miControlador = miControlador;
+	}
+
+	public void setVista(VistaBarcos miVista) {
+		this.miVista = miVista;
+	}
+
+	// Llenamos las filas del tablero con agua
 	public static void RellenarTablero(String[][] tablero) {
-		// Se llena el tablero con agua
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero[i].length; j++) {
 				tablero[i][j] = "🌊";
 			}
 		}
 
-		// Se colocan 10 barcos en posiciones aleatorias
+		//Colocamos 10 barcos en posiciones aleatorias
 		for (int i = 0; i < 10; i++) {
 			int numX = (int) (Math.random() * 10) + 1;
 			int numY = (int) (Math.random() * 10) + 1;
@@ -25,7 +43,7 @@ public class JuegoBarcos{
 		}
 	}
 
-	// Método que comprueba si una coordenada contiene un barco
+	//Comprobamos si la coordenada coincide com un barco
 	public static boolean ComprobarCoordenada(String coordenada, String[][] tablero) {
 		int x = Integer.parseInt(coordenada.split(" ")[0]);
 		int y = Integer.parseInt(coordenada.split(" ")[1]);
@@ -40,21 +58,12 @@ public class JuegoBarcos{
 			return false;
 		}
 	}
-
-	public void imprimirTablero(String[][] tablero) {
-		for (int i = 0; i < tablero.length; i++) {
-			for (int j = 0; j < tablero[i].length; j++) {
-				System.out.print(tablero[i][j]);
-			}
-			System.out.println();
-		}
-	}
 	
-	
-	
-	public String leerCoordenadaConsola() {
+	//Leemos la coordenada entroducida
+	public String leerCoordenadaConsola(String jugador) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Introduce las coordenadas de disparo (ejemplo: 5 3):");
+		System.out.println(jugador + " introduce las coordenadas de disparo o 'Fin' para terminar:");
 		return sc.nextLine();
 	}
+
 }

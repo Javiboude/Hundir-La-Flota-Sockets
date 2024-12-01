@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.io.*;
 
 class ClienteTCP {
+	
+	// Conexiones entre el cliente y el servidor
 	private Socket socketCliente = null;
 	private BufferedReader entrada = null;
 	private PrintWriter salida = null;
