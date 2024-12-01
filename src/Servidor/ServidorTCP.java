@@ -1,9 +1,16 @@
 package Servidor;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
 
-class ServidorTCP {
+public class ServidorTCP {
 	private Socket socketCliente;
 	private ServerSocket socketServidor;
 	private BufferedReader entrada;
@@ -27,18 +34,6 @@ class ServidorTCP {
 		}
 	}
 
-	public void closeServidorTCP() {
-		try {
-			salida.close();
-			entrada.close();
-			socketCliente.close();
-			socketServidor.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("-> Servidor Terminado");
-	}
-
 	public String recibirMsg() {
 		String linea = "";
 		try {
@@ -53,4 +48,15 @@ class ServidorTCP {
 		salida.println(linea);
 	}
 
+	public void closeServidorTCP() {
+		try {
+			salida.close();
+			entrada.close();
+			socketCliente.close();
+			socketServidor.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("-> Servidor Terminado");
+	}
 }

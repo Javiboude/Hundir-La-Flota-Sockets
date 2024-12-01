@@ -21,17 +21,6 @@ class ClienteTCP {
 		}
 	}
 
-	public void closeClienteTCP() {
-		try {
-			salida.close();
-			entrada.close();
-			socketCliente.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("-> Cliente Terminado");
-	}
-
 	public void enviarMsg(String linea) {
 		salida.println(linea);
 	}
@@ -44,5 +33,16 @@ class ClienteTCP {
 			e.printStackTrace();
 		}
 		return msg;
+	}
+
+	public void closeClienteTCP() {
+		try {
+			salida.close();
+			entrada.close();
+			socketCliente.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("-> Cliente Terminado");
 	}
 }
