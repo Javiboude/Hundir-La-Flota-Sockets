@@ -2,12 +2,12 @@ package Cliente;
 
 
 import UndirFlota.JuegoBarcos;
-import Vista.VistaBarcos;
+import Vista._01_VistaBarcos;
 
 public class ControladorClienteTPC {
 	
 	//Controlador del cliente
-	private VistaBarcos miVista;
+	private _01_VistaBarcos miVista;
     private JuegoBarcos juegoBarcos;
     
     public ControladorClienteTPC() {
@@ -18,7 +18,7 @@ public class ControladorClienteTPC {
         this.juegoBarcos = juegoBarcos;
     }
     
-    public void setVista(VistaBarcos miVista) {
+    public void setVista(_01_VistaBarcos miVista) {
         this.miVista = miVista;
     }
 }

@@ -8,51 +8,58 @@ import UndirFlota.JuegoBarcos;
 
 import java.awt.*;
 
-public class VistaBarcos extends JFrame {
+public class _01_VistaBarcos extends JFrame implements Vista {
 
 	// Damos a conocer las clases entre ellas
-	private ControladorClienteTPC miControladorC;
 	private JuegoBarcos juegoBarcos;
+	private ControladorClienteTPC miControladorC;
 	private ControladorServidorTPC miControladorV;
 
+	// Panel donde mostramos el tablero
+	private JPanel panelTablero;
+	private JLabel celda;
+
+	@Override
 	public void setModelo(JuegoBarcos juegoBarcos) {
+		// TODO Auto-generated method stub
 		this.juegoBarcos = juegoBarcos;
 	}
 
+	@Override
 	public void setControladorC(ControladorClienteTPC miControladorC) {
+		// TODO Auto-generated method stub
 		this.miControladorC = miControladorC;
 	}
 
+	@Override
 	public void setControladorV(ControladorServidorTPC miControladorV) {
+		// TODO Auto-generated method stub
 		this.miControladorV = miControladorV;
 	}
 
-	// Panel donde mostramos el tablero
-	private JPanel panel;
-
 	// Get content pane
-	public VistaBarcos(String jugador) {
+	public _01_VistaBarcos(String jugador) {
 		setTitle("Hundir la Flota " + jugador);
 		setBounds(100, 100, 874, 644);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 
 		// Configuración del panel del tablero.
-		panel = new JPanel();
-		panel.setLayout(new GridLayout(10, 10)); // Crear una cuadrícula de 10x10.
-		getContentPane().add(panel, BorderLayout.CENTER); // Agregar al centro de la vista.
+		panelTablero = new JPanel();
+		panelTablero.setLayout(new GridLayout(10, 10)); // Crear una cuadrícula de 10x10.
+		getContentPane().add(panelTablero, BorderLayout.CENTER); // Agregar al centro de la vista.
 	}
 
 	public void imprimirTablero(String[][] tablero) {
 		// Limpiar el panel por si se quiere actualizar.
-		panel.removeAll();
+		panelTablero.removeAll();
 
 		// Iteramos sobre las filas
 		for (int i = 0; i < tablero.length; i++) {
 			// Iteramos sobre las colimnas
 			for (int j = 0; j < tablero[i].length; j++) {
 				// Creamos un JLabel para cada celda
-				JLabel celda = new JLabel(tablero[i][j], SwingConstants.CENTER);
+				 celda = new JLabel(tablero[i][j], SwingConstants.CENTER);
 				// Borde para distinguir las celdas.
 				celda.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				celda.setOpaque(true);
@@ -72,13 +79,13 @@ public class VistaBarcos extends JFrame {
 					celda.setBackground(Color.WHITE);
 					break;
 				}
-				//Agregamos el panel
-				panel.add(celda);
+				// Agregamos el panel
+				panelTablero.add(celda);
 			}
 		}
 
 		// Refrescamos la ventana
-		panel.revalidate();
-		panel.repaint();
+		panelTablero.revalidate();
+		panelTablero.repaint();
 	}
 }

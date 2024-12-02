@@ -3,12 +3,12 @@ package UndirFlota;
 import java.util.Scanner;
 
 import Cliente.ControladorClienteTPC;
-import Vista.VistaBarcos;
+import Vista._01_VistaBarcos;
 
 public class JuegoBarcos {
 
 	// Damos a conocer las clases entre ellas
-	private VistaBarcos miVista;
+	private _01_VistaBarcos miVista;
 	private ControladorClienteTPC miControlador;
 
 	public JuegoBarcos() {
@@ -19,7 +19,7 @@ public class JuegoBarcos {
 		this.miControlador = miControlador;
 	}
 
-	public void setVista(VistaBarcos miVista) {
+	public void setVista(_01_VistaBarcos miVista) {
 		this.miVista = miVista;
 	}
 

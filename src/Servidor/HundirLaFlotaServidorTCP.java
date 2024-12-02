@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import Cliente.ControladorClienteTPC;
 import UndirFlota.JuegoBarcos;
-import Vista.VistaBarcos;
+import Vista._01_VistaBarcos;
 
 public class HundirLaFlotaServidorTCP {
 	public static void main(String[] args) throws IOException {
@@ -15,7 +15,7 @@ public class HundirLaFlotaServidorTCP {
 		JuegoBarcos juegoBarcos = new JuegoBarcos();
 
 		// Creamos la interfaz gráfica para el jugador 2
-		VistaBarcos miVista = new VistaBarcos("Jugador2");
+		_01_VistaBarcos miVista = new _01_VistaBarcos("Jugador2");
 
 		// Creamos el controlador del servidor
 		ControladorServidorTPC miControlador = new ControladorServidorTPC();
