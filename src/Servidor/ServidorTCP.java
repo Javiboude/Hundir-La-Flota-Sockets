@@ -59,6 +59,6 @@ public class ServidorTCP {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("-> Servidor Terminado");
+		System.out.println("-> Jugador2 Terminado");
 	}
 }

@@ -32,7 +32,7 @@ public class VistaBarcos extends JFrame {
 
 	// Get content pane
 	public VistaBarcos(String jugador) {
-		setTitle("Hundir la Flota" + jugador);
+		setTitle("Hundir la Flota " + jugador);
 		setBounds(100, 100, 874, 644);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());

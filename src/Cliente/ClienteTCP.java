@@ -45,6 +45,6 @@ class ClienteTCP {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("-> Cliente Terminado");
+		System.out.println("-> Jugador1 Terminado");
 	}
 }
